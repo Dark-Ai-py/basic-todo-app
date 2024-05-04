@@ -4,22 +4,39 @@ import { ref } from 'vue'
 let cards = ref([
   {title: 'Date', description: 'yapping'}
 ]);
+  let modalValue = ref("");
+  let maxCharExceeded = ref(false);
 
-console.log(cards);
+  function isMaxCharExceeded() {
+    if (modalValue.value.length >= 100) {
+      maxCharExceeded = true;
+    } else {
+      maxCharExceeded = false;
+    }
+  }
 
-  let modalValue = ref(0);
-
-function addCard(desc) {
+function addCard(desc, event) {
+  if (maxCharExceeded == true) {
+    if (event) {
+      event.preventDefault();
+    }
+  } else if (maxCharExceeded == false) {
   let dateClass = new Date();
   let year = new String(dateClass.getFullYear())
   let date =`${dateClass.getMonth() + 1}/${dateClass.getDate()}/${year.substring(2)}`;
   cards.value.push({title: date, description: desc});
+  modalValue.value = "";
+  } 
+}
+
+function removeCard(index) {
+  cards.value.splice(index - 1, 1);
 }
 
 </script>
 
 <template>
-  <div data-theme="dim" class="wrapper">
+  <div data-theme="cyberpunk" class="wrapper">
     <nav class="navbar bg-base-100">
       <div class="flex-1">
         <a class="btn text-xl">ToDo list</a>
@@ -32,14 +49,14 @@ function addCard(desc) {
     </nav>
 
     <dialog id="add_card" class="modal">
-      <div class="modal-box min-h-60">
+      <div class="modal-box overflow-hidden">
         <h3 class="font-bold text-lg mb-5">Hello! What would you like to add?</h3>
-        <textarea class="textarea textarea-secondary w-full max-h-20 min-h-20 overflow-auto mb-3" @input="modalValue = $event.target.value"></textarea>
-        <br>
+        <textarea class="textarea textarea-secondary w-full h-24 overflow-none no-underline" maxlength="100" @input="modalValue = $event.target.value; isMaxCharExceeded()"  :value="modalValue"></textarea>
+        <p class="py-4 relative bottom-4 pb-0 text-red-500 font-bold" v-show="maxCharExceeded">**This note exceeds the maximum length**</p>
         <div class="modal-action">
-          <form method="dialog">
-            <button class="btn btn-error absolute left-3 bottom-4">Close</button>
-            <button class="btn btn-primary absolute right-3 bottom-4" @click="addCard(modalValue)">Submit</button>
+          <form method="dialog" class="w-full h-max gap-80 flex">
+            <button class="btn btn-error font-semibold" @click="modalValue = ''">Close</button>
+            <button class="btn btn-primary font-semibold" @click="addCard(modalValue, $event)">Submit</button>
           </form>
         </div>
       </div>
@@ -50,7 +67,7 @@ function addCard(desc) {
         <h2 class="card-title">{{ card.title }}</h2>
         <p class="line-clamp-5 max-h-28">{{ card.description }}</p>
         <div class="card-actions justify-end">
-          <button class="btn btn-primary">X</button>
+          <button class="btn btn-primary" @click="removeCard(card)">X</button>
         </div>
       </div>
     </div>
@@ -63,5 +80,10 @@ function addCard(desc) {
 .wrapper {
   width: 100vw;
   height: 100vh;
+  
 }
+textarea {
+  resize: none;
+}
+
 </style>
