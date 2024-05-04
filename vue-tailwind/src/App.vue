@@ -22,7 +22,7 @@ function addCard(desc) {
   <div data-theme="dim" class="wrapper">
     <nav class="navbar bg-base-100">
       <div class="flex-1">
-        <a class="btn text-xl">daisyUI</a>
+        <a class="btn text-xl">ToDo list</a>
       </div>
       <div class="flex-none">
         <button class="btn btn-square btn-ghost" onclick="add_card.showModal()">
