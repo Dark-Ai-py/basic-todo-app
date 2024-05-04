@@ -6,18 +6,18 @@ export default {
   ],
   theme: {
     extend: {},
-    daisyui: {
-      themes: [
-        "light",
-        "dark",
-        "dim",
-        "nord",
-        "sunset",
-      ],
-    },
   },
   plugins: [
     require('daisyui'),
   ],
+  daisyui: {
+    themes: [
+      "light",
+      "dark",
+      "dim",
+      "nord",
+      "sunset",
+    ],
+  },
 }
 

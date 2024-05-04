@@ -1,10 +1,10 @@
 <script setup>
-  
+
 </script>
 
 <template>
-  <div data-theme='nord' class="wrapper">
-    
+  <div data-theme='sunset' class="wrapper">
+    <p>cool text</p>
   </div>
 </template>
 
