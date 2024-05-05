@@ -2,11 +2,10 @@
 import { ref } from 'vue'
 
 let cards = ref([
-  {title: 'Date', description: 'yapping'}
+  {title: 'Date', description: 'yapping'},
 ]);
   let modalValue = ref("");
   let maxCharExceeded = ref(false);
-
   function isMaxCharExceeded() {
     if (modalValue.value.length >= 100) {
       maxCharExceeded = true;
@@ -30,13 +29,14 @@ function addCard(desc, event) {
 }
 
 function removeCard(index) {
-  cards.value.splice(index - 1, 1);
+  console.log(index)
+  cards.value.splice(index, 1);
 }
 
 </script>
 
 <template>
-  <div data-theme="cyberpunk" class="wrapper">
+  <div data-theme="cyberpunk" class="wrapper h-full">
     <nav class="navbar bg-base-100">
       <div class="flex-1">
         <a class="btn text-xl">ToDo list</a>
@@ -62,16 +62,17 @@ function removeCard(index) {
       </div>
     </dialog>
 
-    <div class="card w-96 bg-base-100 shadow-xl max-h-58" v-for="card in cards" :key="card">
+    <div class="grid grid-cols-4 grid-rows-2 gap-0.5">
+    <div class="card w-ful bg-base-100 shadow-xl max-h-58 border-black border-solid border-2" v-for="(card, index) in cards" :key="index">
       <div class="card-body">
         <h2 class="card-title">{{ card.title }}</h2>
         <p class="line-clamp-5 max-h-28">{{ card.description }}</p>
         <div class="card-actions justify-end">
-          <button class="btn btn-primary" @click="removeCard(card)">X</button>
+          <button class="btn btn-primary" @click="removeCard(index)">X</button>
         </div>
       </div>
     </div>
-    
+  </div>
 
   </div>
 </template>
