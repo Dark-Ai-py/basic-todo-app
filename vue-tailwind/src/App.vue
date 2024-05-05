@@ -6,6 +6,8 @@ let cards = ref([
 ]);
   let modalValue = ref("");
   let maxCharExceeded = ref(false);
+
+
   function isMaxCharExceeded() {
     if (modalValue.value.length >= 100) {
       maxCharExceeded = true;
@@ -51,7 +53,7 @@ function removeCard(index) {
     <dialog id="add_card" class="modal">
       <div class="modal-box overflow-hidden">
         <h3 class="font-bold text-lg mb-5">Hello! What would you like to add?</h3>
-        <textarea class="textarea textarea-secondary w-full h-24 overflow-none no-underline" maxlength="100" @input="modalValue = $event.target.value; isMaxCharExceeded()"  :value="modalValue"></textarea>
+        <textarea class="textarea textarea-secondary w-full h-24 overflow-none no-underline" maxlength="99" @input="modalValue = $event.target.value; isMaxCharExceeded()"  :value="modalValue"></textarea>
         <p class="py-4 relative bottom-4 pb-0 text-red-500 font-bold" v-show="maxCharExceeded">**This note exceeds the maximum length**</p>
         <div class="modal-action">
           <form method="dialog" class="w-full h-max gap-80 flex">
@@ -62,11 +64,11 @@ function removeCard(index) {
       </div>
     </dialog>
 
-    <div class="grid grid-cols-4 grid-rows-2 gap-0.5">
-    <div class="card w-ful bg-base-100 shadow-xl max-h-58 border-black border-solid border-2" v-for="(card, index) in cards" :key="index">
+    <div class="flex flex-row flex-wrap">
+    <div class="card w-80 bg-base-100 shadow-xl border-black border-solid border-2" v-for="(card, index) in cards" :key="index">
       <div class="card-body">
         <h2 class="card-title">{{ card.title }}</h2>
-        <p class="line-clamp-5 max-h-28">{{ card.description }}</p>
+        <p class="line-clamp-5 h-28">{{ card.description }}</p>
         <div class="card-actions justify-end">
           <button class="btn btn-primary" @click="removeCard(index)">X</button>
         </div>
