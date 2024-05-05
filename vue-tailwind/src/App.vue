@@ -36,7 +36,7 @@ function removeCard(index) {
 </script>
 
 <template>
-  <div data-theme="cyberpunk" class="wrapper h-full">
+  <div data-theme="sunset" class="wrapper h-full">
     <nav class="navbar bg-base-100">
       <div class="flex-1">
         <a class="btn text-xl">ToDo list</a>
